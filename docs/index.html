@@ -1,0 +1,1130 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d7a">
+  <meta name="description" content="Tirage au sort Rice Pace Club × NookUp pour gagner un dossard des 20K de Paris.">
+  <title>Rice Pace Club × NookUp — Tirage 20K de Paris</title>
+  <link rel="icon" type="image/png" href="assets/nookup-logo.png">
+  <style>
+    :root {
+      --ink: #101a3a;
+      --background: #173d7a;
+      --paper: #f7f1df;
+      --lime: #8caaff;
+      --coral: #f1d16e;
+      --blue: #3569d2;
+      --line: rgba(245, 242, 232, 0.18);
+      --muted: rgba(245, 242, 232, 0.64);
+      --radius: 24px;
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--paper);
+      background:
+        linear-gradient(rgba(245, 242, 232, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 242, 232, 0.025) 1px, transparent 1px),
+        var(--background);
+      background-size: 42px 42px;
+      overflow-x: hidden;
+    }
+
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible,
+    label:focus-within {
+      outline: 3px solid var(--lime);
+      outline-offset: 4px;
+    }
+
+    .shell {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 22px clamp(18px, 4vw, 64px) 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .brand-unit {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      white-space: nowrap;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 48px;
+      height: 48px;
+      border: 2px solid rgba(247, 241, 223, 0.82);
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 5px 0 rgba(10, 25, 60, 0.48);
+    }
+
+    .brand-x { color: var(--coral); font-size: 1.1rem; }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 5px rgba(216, 255, 62, 0.11);
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 28px;
+      padding: clamp(28px, 5vw, 58px) 0 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--lime);
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(3.3rem, 8vw, 7.6rem);
+      line-height: 0.84;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+    }
+
+    h1 span { color: var(--coral); }
+
+    .prize-bib {
+      position: relative;
+      min-width: 205px;
+      padding: 18px 22px 20px;
+      color: var(--ink);
+      background: var(--paper);
+      border-radius: 15px;
+      box-shadow: 9px 9px 0 var(--ink);
+      transform: rotate(2deg);
+    }
+
+    .prize-bib::before,
+    .prize-bib::after {
+      content: "";
+      position: absolute;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+    }
+
+    .prize-bib::before { left: 12px; }
+    .prize-bib::after { right: 12px; }
+
+    .bib-kicker,
+    .bib-footer {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .bib-number {
+      display: block;
+      margin: 6px 0 2px;
+      text-align: center;
+      font-size: 3.6rem;
+      font-weight: 950;
+      line-height: 0.9;
+      letter-spacing: -0.09em;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(12, 29, 67, 0.88);
+      overflow: hidden;
+    }
+
+    .wheel-panel {
+      position: relative;
+      display: grid;
+      min-height: 620px;
+      place-items: center;
+      padding: clamp(34px, 5vw, 66px);
+      isolation: isolate;
+    }
+
+    .wheel-panel::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 72%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(140, 170, 255, 0.26);
+      filter: blur(70px);
+    }
+
+    .wheel-wrap {
+      position: relative;
+      width: min(570px, 78vw);
+      aspect-ratio: 1;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      z-index: 4;
+      top: -10px;
+      left: 50%;
+      width: 42px;
+      height: 54px;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background: var(--paper);
+      transform: translateX(-50%);
+      filter: drop-shadow(0 8px 6px rgba(0,0,0,.3));
+    }
+
+    .wheel {
+      position: absolute;
+      inset: 0;
+      border: clamp(8px, 1.2vw, 16px) solid var(--paper);
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        from -7.5deg,
+        var(--coral) 0deg 15deg,
+        var(--lime) 15deg 30deg,
+        var(--ink) 30deg 45deg,
+        var(--paper) 45deg 60deg
+      );
+      box-shadow:
+        0 0 0 6px var(--ink),
+        0 0 0 8px rgba(245, 242, 232, 0.28),
+        0 26px 60px rgba(0, 0, 0, 0.4);
+      will-change: transform;
+    }
+
+    .wheel::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border: 2px solid rgba(16, 17, 15, 0.45);
+      border-radius: 50%;
+      background: rgba(16, 26, 58, 0.12);
+    }
+
+    .wheel-center {
+      position: absolute;
+      z-index: 3;
+      inset: 50% auto auto 50%;
+      display: grid;
+      place-items: center;
+      width: 36%;
+      aspect-ratio: 1;
+      padding: 18px;
+      border: 6px solid var(--paper);
+      border-radius: 50%;
+      color: var(--paper);
+      background: #101a3a;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+      text-align: center;
+    }
+
+    .center-label {
+      display: block;
+      color: var(--lime);
+      font-size: clamp(0.62rem, 1.3vw, 0.82rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ticker-name {
+      display: -webkit-box;
+      max-width: 100%;
+      margin-top: 6px;
+      overflow: hidden;
+      font-size: clamp(0.9rem, 2.1vw, 1.35rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .ready {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--lime);
+      font-size: 0.75rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ready::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(245, 242, 232, 0.025);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 750;
+      line-height: 1.3;
+    }
+
+    .stat.accent { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+    .stat.accent span { color: rgba(16, 17, 15, 0.66); }
+
+    .weight-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0 20px;
+    }
+
+    .source-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(245, 242, 232, 0.07);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 750;
+    }
+
+    .source-row b { color: var(--paper); }
+    .source-badge { color: var(--coral); font-weight: 950; }
+    .source-row.heylo .source-badge { color: var(--blue); }
+
+    .primary-button {
+      width: 100%;
+      min-height: 64px;
+      border: 0;
+      border-radius: 16px;
+      color: var(--ink);
+      background: var(--lime);
+      box-shadow: 0 7px 0 #516db7;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 950;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    }
+
+    .primary-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 9px 0 #516db7; }
+    .primary-button:active:not(:disabled) { transform: translateY(5px); box-shadow: 0 2px 0 #516db7; }
+    .primary-button:disabled { cursor: not-allowed; opacity: 0.55; }
+
+    .fair-note {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .bottom-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    details.panel { padding: 0; }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 72px;
+      padding: 0 24px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.93rem;
+      font-weight: 850;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--lime); font-size: 1.45rem; font-weight: 400; }
+    details[open] summary::after { content: "−"; }
+    details[open] summary { border-bottom: 1px solid var(--line); }
+
+    .details-body { padding: 20px 24px 24px; }
+    .details-body > p { margin: 0 0 16px; color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
+
+    .uploads { display: grid; gap: 10px; }
+
+    .upload-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .upload-copy { min-width: 0; }
+    .upload-copy strong { display: block; font-size: 0.88rem; }
+    .file-status { display: block; margin-top: 3px; color: var(--muted); font-size: 0.74rem; line-height: 1.35; }
+    .file-status.error { color: #ff9c85; }
+
+    .file-button,
+    .secondary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--paper);
+      background: rgba(245, 242, 232, 0.06);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .file-button input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .secondary-button { margin-top: 12px; }
+
+    dialog {
+      width: min(580px, calc(100% - 28px));
+      padding: 0;
+      border: 1px solid rgba(245, 242, 232, .28);
+      border-radius: 26px;
+      color: var(--paper);
+      background: var(--ink);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7);
+      overflow: visible;
+    }
+
+    dialog::backdrop { background: rgba(7, 8, 7, 0.78); backdrop-filter: blur(10px); }
+
+    .winner-card {
+      position: relative;
+      padding: clamp(30px, 6vw, 54px);
+      overflow: hidden;
+      border-radius: 26px;
+      text-align: center;
+    }
+
+    .winner-card::before {
+      content: "";
+      position: absolute;
+      top: -90px;
+      left: 50%;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--blue);
+      filter: blur(80px);
+      transform: translateX(-50%);
+      opacity: .55;
+    }
+
+    .winner-kicker {
+      position: relative;
+      margin: 0 0 16px;
+      color: var(--lime);
+      font-size: 0.76rem;
+      font-weight: 950;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .winner-card h2 {
+      position: relative;
+      margin: 0;
+      font-size: clamp(2.8rem, 9vw, 5.4rem);
+      line-height: .92;
+      letter-spacing: -0.07em;
+      overflow-wrap: anywhere;
+    }
+
+    .winner-meta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 18px 0 28px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .winner-actions { position: relative; display: grid; gap: 10px; }
+    .winner-actions .secondary-button { width: 100%; margin: 0; }
+
+    .confetti { position: fixed; z-index: 9999; top: -18px; width: 10px; height: 18px; pointer-events: none; animation: fall 2.8s linear forwards; }
+    @keyframes fall { to { transform: translate3d(var(--drift), 110vh, 0) rotate(760deg); opacity: .9; } }
+
+    .toast {
+      position: fixed;
+      z-index: 20;
+      right: 18px;
+      bottom: 18px;
+      max-width: min(360px, calc(100% - 36px));
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--paper);
+      background: #10285a;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      font-size: 0.82rem;
+      font-weight: 750;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 940px) {
+      .intro { grid-template-columns: 1fr; align-items: start; }
+      .prize-bib { justify-self: end; margin-top: -18px; }
+      .dashboard { grid-template-columns: 1fr; }
+      .wheel-panel { min-height: auto; }
+      .side-panel { min-height: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .shell { padding: 16px 14px 34px; }
+      .brand-unit span { display: none; }
+      .brand-logo { width: 42px; height: 42px; border-radius: 13px; }
+      .live-pill { padding: 8px 10px; font-size: 0.68rem; }
+      .intro { padding-top: 34px; }
+      h1 { font-size: clamp(3.2rem, 17vw, 5.2rem); }
+      .prize-bib { min-width: 174px; margin-top: -8px; padding: 16px 18px; }
+      .bib-number { font-size: 3rem; }
+      .wheel-panel { padding: 42px 16px 32px; }
+      .wheel-wrap { width: min(88vw, 470px); }
+      .wheel-center { border-width: 4px; }
+      .bottom-stack { grid-template-columns: 1fr; }
+      .upload-row { grid-template-columns: 1fr; }
+      .file-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-lockup" aria-label="Rice Pace Club et NookUp">
+        <span class="brand-unit"><img class="brand-logo" src="assets/rice-pace-club-logo.png" alt=""><span>Rice Pace Club</span></span>
+        <span class="brand-x" aria-hidden="true">×</span>
+        <span class="brand-unit"><img class="brand-logo" src="assets/nookup-logo.png" alt=""><span>NookUp</span></span>
+      </div>
+      <div class="live-pill"><span class="live-dot" aria-hidden="true"></span> Tirage live</div>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Concours · Paris</p>
+        <h1 id="page-title">Qui prendra le <span>départ&nbsp;?</span></h1>
+      </div>
+      <div class="prize-bib" aria-label="Lot : un dossard pour les 20 kilomètres de Paris">
+        <span class="bib-kicker">À gagner</span>
+        <span class="bib-number">20K</span>
+        <span class="bib-footer">Dossard · Paris</span>
+      </div>
+    </section>
+
+    <section class="dashboard" aria-label="Tirage au sort">
+      <div class="panel wheel-panel">
+        <div class="wheel-wrap" aria-label="Roue du tirage au sort">
+          <div class="wheel-pointer" aria-hidden="true"></div>
+          <div class="wheel" id="wheel" aria-hidden="true"></div>
+          <div class="wheel-center" aria-live="polite">
+            <div>
+              <span class="center-label" id="centerLabel">Prêt à courir</span>
+              <span class="ticker-name" id="tickerName">20K de Paris</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side-panel">
+        <div class="section-head">
+          <h2>Participants chargés</h2>
+          <span class="ready" id="readyStatus">Prêt</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <strong id="participantCount">132</strong>
+            <span>participants éligibles</span>
+          </div>
+          <div class="stat accent">
+            <strong id="chanceCount">189</strong>
+            <span>chances dans le tirage</span>
+          </div>
+        </div>
+
+        <div class="weight-legend">
+          <div class="source-row">
+            <span>Instagram<br><b id="instagramCount">75</b> entrées</span>
+            <span class="source-badge">×1</span>
+          </div>
+          <div class="source-row heylo">
+            <span>Heylo · Going<br><b id="heyloCount">57</b> runners</span>
+            <span class="source-badge">×2</span>
+          </div>
+        </div>
+
+        <button class="primary-button" id="drawButton" type="button">Lancer le tirage</button>
+        <p class="fair-note" id="fairNote">Le gagnant est choisi au clic par un tirage aléatoire pondéré. La roue anime le résultat déjà calculé.</p>
+      </aside>
+    </section>
+
+    <section class="bottom-stack" aria-label="Réglages et résultats">
+      <details class="panel">
+        <summary>Importer ou remplacer les CSV</summary>
+        <div class="details-body">
+          <p>Les listes du concours sont déjà chargées. Tu peux les remplacer ici avant le live. Les doublons et les lignes vides sont retirés automatiquement ; côté Heylo, seules les lignes avec le statut « going » sont retenues.</p>
+          <div class="uploads">
+            <div class="upload-row">
+              <div class="upload-copy">
+                <strong>Instagram · colonne username</strong>
+                <span class="file-status" id="instagramStatus">75 lignes valides · aucun doublon</span>
+              </div>
+              <label class="file-button">Choisir un CSV<input id="instagramFile" type="file" accept=".csv,text/csv" aria-label="Importer le CSV Instagram"></label>
+            </div>
+            <div class="upload-row">
+              <div class="upload-copy">
+                <strong>Heylo / run · fullName + rsvpStatus = going</strong>
+                <span class="file-status" id="heyloStatus">57 lignes valides · 26 non-going écartées</span>
+              </div>
+              <label class="file-button">Choisir un CSV<input id="heyloFile" type="file" accept=".csv,text/csv" aria-label="Importer le CSV Heylo"></label>
+            </div>
+          </div>
+          <button class="secondary-button" id="restoreButton" type="button">Restaurer les listes initiales</button>
+        </div>
+      </details>
+
+    </section>
+  </main>
+
+  <dialog id="winnerDialog" aria-labelledby="winnerTitle">
+    <div class="winner-card">
+      <p class="winner-kicker" id="winnerKicker">Le dossard est pour…</p>
+      <h2 id="winnerTitle">—</h2>
+      <div class="winner-meta" id="winnerMeta">Instagram · 1 chance</div>
+      <div class="winner-actions">
+        <button class="primary-button" id="drawAgainButton" type="button">Tirer un autre gagnant</button>
+        <button class="secondary-button" id="closeDialogButton" type="button">Fermer</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="seed-data.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const seed = window.SEED_DATA || { instagram: [], heylo: [], meta: { heyloFiltered: 0 } };
+      const elements = {
+        wheel: document.querySelector("#wheel"),
+        tickerName: document.querySelector("#tickerName"),
+        centerLabel: document.querySelector("#centerLabel"),
+        drawButton: document.querySelector("#drawButton"),
+        participantCount: document.querySelector("#participantCount"),
+        chanceCount: document.querySelector("#chanceCount"),
+        instagramCount: document.querySelector("#instagramCount"),
+        heyloCount: document.querySelector("#heyloCount"),
+        readyStatus: document.querySelector("#readyStatus"),
+        fairNote: document.querySelector("#fairNote"),
+        instagramFile: document.querySelector("#instagramFile"),
+        heyloFile: document.querySelector("#heyloFile"),
+        instagramStatus: document.querySelector("#instagramStatus"),
+        heyloStatus: document.querySelector("#heyloStatus"),
+        restoreButton: document.querySelector("#restoreButton"),
+        winnerDialog: document.querySelector("#winnerDialog"),
+        winnerTitle: document.querySelector("#winnerTitle"),
+        winnerMeta: document.querySelector("#winnerMeta"),
+        winnerKicker: document.querySelector("#winnerKicker"),
+        drawAgainButton: document.querySelector("#drawAgainButton"),
+        closeDialogButton: document.querySelector("#closeDialogButton"),
+        toast: document.querySelector("#toast")
+      };
+
+      const normalize = (value) => String(value ?? "").normalize("NFKC").trim().toLocaleLowerCase("fr");
+      const instagramKey = (value) => normalize(value).replace(/^@+/, "");
+      const displayInstagram = (value) => `@${String(value).trim().replace(/^@+/, "")}`;
+
+      const makeEntries = (values, source, filtered = 0) => {
+        const seen = new Set();
+        const entries = [];
+        let empty = 0;
+        let duplicates = 0;
+
+        for (const rawValue of values) {
+          const value = String(rawValue ?? "").normalize("NFKC").trim();
+          if (!value) {
+            empty += 1;
+            continue;
+          }
+          const key = source === "instagram" ? instagramKey(value) : normalize(value);
+          if (!key) {
+            empty += 1;
+            continue;
+          }
+          if (seen.has(key)) {
+            duplicates += 1;
+            continue;
+          }
+          seen.add(key);
+          entries.push({
+            key: `${source}:${key}`,
+            personKey: normalize(source === "instagram" ? displayInstagram(value) : value),
+            name: source === "instagram" ? displayInstagram(value) : value,
+            source,
+            weight: source === "heylo" ? 2 : 1
+          });
+        }
+        return { entries, empty, duplicates, rows: values.length, filtered };
+      };
+
+      const state = {
+        instagram: makeEntries(seed.instagram, "instagram"),
+        heylo: makeEntries(seed.heylo, "heylo", seed.meta?.heyloFiltered || 0),
+        winners: [],
+        excludedPeople: new Set(),
+        spinning: false,
+        wheelRotation: 0
+      };
+
+      function allEntries() {
+        return [...state.instagram.entries, ...state.heylo.entries];
+      }
+
+      function eligibleEntries() {
+        return allEntries().filter((entry) => !state.excludedPeople.has(entry.personKey));
+      }
+
+      function totalWeight(entries) {
+        return entries.reduce((sum, entry) => sum + entry.weight, 0);
+      }
+
+      function randomBelow(ceiling) {
+        if (!Number.isSafeInteger(ceiling) || ceiling <= 0 || ceiling > 0xffffffff) {
+          throw new Error("Plage de tirage invalide.");
+        }
+        const range = 0x100000000;
+        const limit = range - (range % ceiling);
+        const values = new Uint32Array(1);
+        do {
+          crypto.getRandomValues(values);
+        } while (values[0] >= limit);
+        return values[0] % ceiling;
+      }
+
+      function chooseWinner(entries) {
+        const weight = totalWeight(entries);
+        let ticket = randomBelow(weight);
+        for (const entry of entries) {
+          if (ticket < entry.weight) return entry;
+          ticket -= entry.weight;
+        }
+        throw new Error("Aucun gagnant sélectionné.");
+      }
+
+      function statusText(dataset) {
+        const notes = [`${dataset.entries.length} ligne${dataset.entries.length > 1 ? "s" : ""} valide${dataset.entries.length > 1 ? "s" : ""}`];
+        if (dataset.duplicates) notes.push(`${dataset.duplicates} doublon${dataset.duplicates > 1 ? "s" : ""} retiré${dataset.duplicates > 1 ? "s" : ""}`);
+        if (dataset.empty) notes.push(`${dataset.empty} ligne${dataset.empty > 1 ? "s" : ""} vide${dataset.empty > 1 ? "s" : ""} retirée${dataset.empty > 1 ? "s" : ""}`);
+        if (dataset.filtered) notes.push(`${dataset.filtered} non-going écarté${dataset.filtered > 1 ? "s" : ""}`);
+        if (!dataset.duplicates && !dataset.empty) notes.push("aucun doublon");
+        return notes.join(" · ");
+      }
+
+      function render() {
+        const all = allEntries();
+        const eligible = eligibleEntries();
+        const chances = totalWeight(eligible);
+        const loadedSources = Number(state.instagram.entries.length > 0) + Number(state.heylo.entries.length > 0);
+        const readyToDraw = loadedSources === 2;
+        elements.participantCount.textContent = eligible.length.toLocaleString("fr-FR");
+        elements.chanceCount.textContent = chances.toLocaleString("fr-FR");
+        elements.instagramCount.textContent = state.instagram.entries.filter((entry) => !state.excludedPeople.has(entry.personKey)).length.toLocaleString("fr-FR");
+        elements.heyloCount.textContent = state.heylo.entries.filter((entry) => !state.excludedPeople.has(entry.personKey)).length.toLocaleString("fr-FR");
+        elements.instagramStatus.textContent = statusText(state.instagram);
+        elements.heyloStatus.textContent = statusText(state.heylo);
+        elements.drawButton.disabled = state.spinning || !readyToDraw || chances === 0;
+        elements.drawButton.textContent = state.spinning ? "Tirage en cours…" : state.winners.length ? "Tirer un autre gagnant" : "Lancer le tirage";
+        elements.readyStatus.textContent = readyToDraw ? (chances ? "Prêt" : "Terminé") : `${loadedSources}/2 CSV`;
+        elements.fairNote.textContent = readyToDraw && all.length
+          ? "Le gagnant est choisi au clic par un tirage aléatoire pondéré. La roue anime le résultat déjà calculé."
+          : "Importe les deux CSV pour lancer le tirage complet.";
+
+      }
+
+      function animateTicker(entries, duration) {
+        let delay = 55;
+        let elapsed = 0;
+        let timeout;
+        const tick = () => {
+          const candidate = entries[randomBelow(entries.length)];
+          elements.tickerName.textContent = candidate.name;
+          elapsed += delay;
+          delay = Math.min(260, delay * 1.075);
+          if (elapsed < duration - 350) timeout = window.setTimeout(tick, delay);
+        };
+        tick();
+        return () => window.clearTimeout(timeout);
+      }
+
+      function celebrate() {
+        const colors = ["#d8ff3e", "#ff5a36", "#6676ff", "#f5f2e8"];
+        for (let i = 0; i < 54; i += 1) {
+          const piece = document.createElement("i");
+          piece.className = "confetti";
+          piece.style.left = `${randomBelow(10000) / 100}%`;
+          piece.style.background = colors[randomBelow(colors.length)];
+          piece.style.setProperty("--drift", `${randomBelow(240) - 120}px`);
+          piece.style.animationDelay = `${randomBelow(700)}ms`;
+          piece.style.transform = `rotate(${randomBelow(360)}deg)`;
+          document.body.append(piece);
+          window.setTimeout(() => piece.remove(), 3600);
+        }
+      }
+
+      function showWinner(winner) {
+        elements.winnerTitle.textContent = winner.name;
+        elements.winnerMeta.textContent = winner.source === "heylo" ? "Run Heylo · 2 chances" : "Instagram · 1 chance";
+        elements.winnerKicker.textContent = state.winners.length === 1 ? "Le dossard est pour…" : `Gagnant n°${state.winners.length}`;
+        if (!elements.winnerDialog.open) elements.winnerDialog.showModal();
+        celebrate();
+      }
+
+      async function draw() {
+        if (state.spinning) return null;
+        if (!state.instagram.entries.length || !state.heylo.entries.length) {
+          showToast("Importe les deux CSV avant de lancer le tirage.");
+          return null;
+        }
+        const entries = eligibleEntries();
+        if (!entries.length) {
+          showToast("Il n’y a plus de participant éligible.");
+          return null;
+        }
+
+        const winner = chooseWinner(entries);
+        state.spinning = true;
+        elements.centerLabel.textContent = "Tirage en cours";
+        render();
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const duration = reduceMotion ? 350 : 5900;
+        const extraTurns = 7 + randomBelow(3);
+        const finalOffset = 30 + randomBelow(300);
+        state.wheelRotation += extraTurns * 360 + finalOffset;
+        elements.wheel.style.transition = `transform ${duration}ms cubic-bezier(.12,.72,.08,1)`;
+        requestAnimationFrame(() => {
+          elements.wheel.style.transform = `rotate(${state.wheelRotation}deg)`;
+        });
+        const stopTicker = animateTicker(entries, duration);
+
+        await new Promise((resolve) => window.setTimeout(resolve, duration));
+        stopTicker();
+        elements.tickerName.textContent = winner.name;
+        elements.centerLabel.textContent = "Gagnant";
+        state.winners.push(winner);
+        state.excludedPeople.add(winner.personKey);
+        state.spinning = false;
+        render();
+        showWinner(winner);
+        return { name: winner.name, source: winner.source, weight: winner.weight };
+      }
+
+      function parseCsv(text) {
+        const rows = [];
+        let row = [];
+        let field = "";
+        let quoted = false;
+        const input = String(text).replace(/^\uFEFF/, "");
+
+        for (let i = 0; i < input.length; i += 1) {
+          const char = input[i];
+          if (quoted) {
+            if (char === '"' && input[i + 1] === '"') {
+              field += '"';
+              i += 1;
+            } else if (char === '"') {
+              quoted = false;
+            } else {
+              field += char;
+            }
+          } else if (char === '"' && field === "") {
+            quoted = true;
+          } else if (char === ",") {
+            row.push(field);
+            field = "";
+          } else if (char === "\n") {
+            row.push(field.replace(/\r$/, ""));
+            rows.push(row);
+            row = [];
+            field = "";
+          } else {
+            field += char;
+          }
+        }
+        if (field.length || row.length) {
+          row.push(field.replace(/\r$/, ""));
+          rows.push(row);
+        }
+        return rows.filter((cells) => cells.some((cell) => cell.trim() !== ""));
+      }
+
+      async function importCsv(file, source) {
+        const status = source === "instagram" ? elements.instagramStatus : elements.heyloStatus;
+        const expected = source === "instagram" ? "username" : "fullname";
+        try {
+          const rows = parseCsv(await file.text());
+          if (!rows.length) throw new Error("Le fichier est vide.");
+          const headers = rows[0].map((header) => normalize(header));
+          const columnIndex = headers.indexOf(expected);
+          if (columnIndex === -1) {
+            throw new Error(`Colonne ${source === "instagram" ? "username" : "fullName"} introuvable.`);
+          }
+          const dataRows = rows.slice(1);
+          let values;
+          let filtered = 0;
+          if (source === "heylo") {
+            const statusIndex = headers.indexOf("rsvpstatus");
+            if (statusIndex === -1) throw new Error("Colonne rsvpStatus introuvable.");
+            const goingRows = dataRows.filter((cells) => normalize(cells[statusIndex]) === "going");
+            filtered = dataRows.length - goingRows.length;
+            values = goingRows.map((cells) => cells[columnIndex] ?? "");
+          } else {
+            values = dataRows.map((cells) => cells[columnIndex] ?? "");
+          }
+          const dataset = makeEntries(values, source, filtered);
+          if (!dataset.entries.length) throw new Error("Aucune valeur valide dans la colonne attendue.");
+          state[source] = dataset;
+          resetWinners();
+          status.classList.remove("error");
+          render();
+          showToast(`${source === "instagram" ? "Instagram" : "Heylo"} mis à jour · ${dataset.entries.length} entrées valides.`);
+        } catch (error) {
+          status.textContent = error instanceof Error ? error.message : "Impossible de lire ce CSV.";
+          status.classList.add("error");
+        }
+      }
+
+      function resetWinners() {
+        state.winners = [];
+        state.excludedPeople.clear();
+        elements.tickerName.textContent = "20K de Paris";
+        elements.centerLabel.textContent = "Prêt à courir";
+      }
+
+      function restoreSeed() {
+        state.instagram = makeEntries(seed.instagram, "instagram");
+        state.heylo = makeEntries(seed.heylo, "heylo", seed.meta?.heyloFiltered || 0);
+        resetWinners();
+        elements.instagramStatus.classList.remove("error");
+        elements.heyloStatus.classList.remove("error");
+        elements.instagramFile.value = "";
+        elements.heyloFile.value = "";
+        render();
+        showToast("Les listes initiales ont été restaurées.");
+      }
+
+      let toastTimer;
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        elements.toast.textContent = message;
+        elements.toast.classList.add("show");
+        toastTimer = window.setTimeout(() => elements.toast.classList.remove("show"), 3000);
+      }
+
+      elements.drawButton.addEventListener("click", draw);
+      elements.drawAgainButton.addEventListener("click", () => {
+        elements.winnerDialog.close();
+        window.setTimeout(draw, 180);
+      });
+      elements.closeDialogButton.addEventListener("click", () => elements.winnerDialog.close());
+      elements.winnerDialog.addEventListener("click", (event) => {
+        if (event.target === elements.winnerDialog) elements.winnerDialog.close();
+      });
+      elements.instagramFile.addEventListener("change", (event) => {
+        const [file] = event.target.files;
+        if (file) importCsv(file, "instagram");
+      });
+      elements.heyloFile.addEventListener("change", (event) => {
+        const [file] = event.target.files;
+        if (file) importCsv(file, "heylo");
+      });
+      elements.restoreButton.addEventListener("click", restoreSeed);
+
+      function registerWebMcp() {
+        const context = document.modelContext;
+        if (!context?.registerTool) return;
+        const lifecycle = new AbortController();
+        const register = (tool) => Promise.resolve(context.registerTool(tool, { signal: lifecycle.signal })).catch(() => {});
+        const requireEmptyInput = (input) => {
+          if (!input || typeof input !== "object" || Array.isArray(input) || Object.keys(input).length) {
+            throw new Error("Cette action n’accepte aucun paramètre.");
+          }
+        };
+        register({
+          name: "get_draw_status",
+          title: "Voir l’état du tirage",
+          description: "Retourne le nombre de participants, de chances et de gagnants déjà exclus.",
+          inputSchema: { type: "object", properties: {}, additionalProperties: false },
+          annotations: { readOnlyHint: true, untrustedContentHint: true },
+          execute(input) {
+            requireEmptyInput(input);
+            const entries = eligibleEntries();
+            return { participants: entries.length, chances: totalWeight(entries), winners: state.winners.map((winner) => winner.name) };
+          }
+        });
+        register({
+          name: "run_weighted_draw",
+          title: "Lancer le tirage pondéré",
+          description: "Lance le même tirage pondéré que le bouton visible et exclut le gagnant des tirages suivants.",
+          inputSchema: { type: "object", properties: {}, additionalProperties: false },
+          annotations: { readOnlyHint: false, untrustedContentHint: true },
+          async execute(input) {
+            requireEmptyInput(input);
+            if (state.spinning) throw new Error("Un tirage est déjà en cours.");
+            const result = await draw();
+            if (!result) throw new Error("Aucun participant éligible.");
+            return result;
+          }
+        });
+      }
+
+      render();
+      registerWebMcp();
+    })();
+  </script>
+</body>
+</html>
