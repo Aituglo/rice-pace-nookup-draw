@@ -905,12 +905,13 @@
         for (let i = 0; i < 54; i += 1) {
           const piece = document.createElement("i");
           piece.className = "confetti";
+          piece.setAttribute("aria-hidden", "true");
           piece.style.left = `${randomBelow(10000) / 100}%`;
           piece.style.background = colors[randomBelow(colors.length)];
           piece.style.setProperty("--drift", `${randomBelow(240) - 120}px`);
           piece.style.animationDelay = `${randomBelow(700)}ms`;
           piece.style.transform = `rotate(${randomBelow(360)}deg)`;
-          document.body.append(piece);
+          elements.winnerDialog.append(piece);
           window.setTimeout(() => piece.remove(), 3600);
         }
       }
